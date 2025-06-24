@@ -1,10 +1,10 @@
-package survidia.gestiongastos;
+package survidia.expensemanager;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class GestiongastosApplicationTests {
+class ExpenseManagerApplicationTests {
 
 	@Test
 	void contextLoads() {
