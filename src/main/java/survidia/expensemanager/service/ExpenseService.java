@@ -5,7 +5,6 @@ import survidia.expensemanager.model.Expense;
 import java.util.List;
 import java.util.Optional;
 
-@Service
 public interface ExpenseService {
     List<Expense> findAllExpenses();
     Optional<Expense> findExpenseById(Long id);
