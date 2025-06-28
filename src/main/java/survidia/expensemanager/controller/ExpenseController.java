@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api/gastos")
 public class ExpenseController {
     private final ExpenseServiceImpl expenseServiceImpl;
 
