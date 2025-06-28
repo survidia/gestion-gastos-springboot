@@ -35,15 +35,15 @@ public class ExpenseController {
         return expenseServiceImpl.saveExpense(expense);
     }
 
-    @DeleteMapping("/eliminar/{id}")
-    public void deleteExpense(@PathVariable Long id) {
-        expenseServiceImpl.deleteExpense(id);
+    @DeleteMapping("/eliminar/{idExpense}")
+    public void deleteExpense(@PathVariable Long idExpense) {
+        expenseServiceImpl.deleteExpense(idExpense);
     }
 
-    @PutMapping("/actualizar/{id}")
-    public ResponseEntity<?> updateExpense(@PathVariable Long id, @RequestBody Expense expense) {
+    @PutMapping("/actualizar/{idExpense}")
+    public ResponseEntity<?> updateExpense(@PathVariable Long idExpense, @RequestBody Expense expense) {
         try {
-            Optional<Expense> existingExpense = expenseServiceImpl.findExpenseById(id);
+            Optional<Expense> existingExpense = expenseServiceImpl.findExpenseById(idExpense);
             if (existingExpense.isPresent()) {
                 Expense updatedExpense = existingExpense.get();
                 updatedExpense.setDescription(expense.getDescription());
@@ -53,9 +53,9 @@ public class ExpenseController {
 
                 // Save the updated expense
                 expenseServiceImpl.saveExpense(updatedExpense);
-                return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Expense updated successfully");
+                return ResponseEntity.ok("Expense updated successfully");
             } else {
-                throw new RuntimeException("Expense not found with id: " + id);
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Expense not found with id: " + idExpense);
             }
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error updating expense: " + e.getMessage());
