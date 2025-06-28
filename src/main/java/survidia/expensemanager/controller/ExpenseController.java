@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/api/gastos")
+@RequestMapping("/api")
 public class ExpenseController {
     private final ExpenseServiceImpl expenseServiceImpl;
 
@@ -26,12 +26,12 @@ public class ExpenseController {
     }
 
     @GetMapping("/todos/{id}")
-    public Optional<Expense> getExpenseById(Long id) {
+    public Optional<Expense> getExpenseById(@PathVariable Long id) {
         return expenseServiceImpl.findExpenseById(id);
     }
 
     @PostMapping("/crear")
-    public Expense saveExpense(Expense expense) {
+    public Expense saveExpense(@RequestBody Expense expense) {
         return expenseServiceImpl.saveExpense(expense);
     }
 
