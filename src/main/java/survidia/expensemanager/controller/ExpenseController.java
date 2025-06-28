@@ -53,7 +53,7 @@ public class ExpenseController {
 
                 // Save the updated expense
                 expenseServiceImpl.saveExpense(updatedExpense);
-                return ResponseEntity.ok("Expense updated successfully");
+                return ResponseEntity.ok(updatedExpense);
             } else {
                 return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Expense not found with id: " + idExpense);
             }
