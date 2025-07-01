@@ -1,5 +1,6 @@
 package survidia.expensemanager.controller;
 
+import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.HttpStatus;
@@ -20,26 +21,47 @@ public class ExpenseController {
         this.expenseServiceImpl = expenseServiceImpl;
     }
 
+    @Operation(
+            summary = "Obtiene todos los gastos",
+            description = "Devuelve una lista de todos los gastos registrados en el sistema."
+    )
     @GetMapping("/todos")
     public List<Expense> getAllExpenses() {
         return expenseServiceImpl.findAllExpenses();
     }
 
+    @Operation(
+            summary = "Obtiene un gasto por su ID",
+            description = "Devuelve un gasto específico por su ID. Si no se encuentra, devuelve un Optional vacío."
+    )
     @GetMapping("/todos/{id}")
     public Optional<Expense> getExpenseById(@PathVariable Long id) {
         return expenseServiceImpl.findExpenseById(id);
     }
 
+    @Operation(
+            summary = "Crea un nuevo gasto",
+            description = "Registra un nuevo gasto en el sistema."
+    )
     @PostMapping("/crear")
     public Expense saveExpense(@RequestBody Expense expense) {
         return expenseServiceImpl.saveExpense(expense);
     }
 
+    @Operation(
+            summary = "Elimina un gasto por su ID",
+            description = "Elimina un gasto específico por su ID. Si no se encuentra, no realiza ninguna acción."
+    )
     @DeleteMapping("/eliminar/{idExpense}")
     public void deleteExpense(@PathVariable Long idExpense) {
         expenseServiceImpl.deleteExpense(idExpense);
     }
 
+
+    @Operation(
+            summary = "Actualiza un gasto existente",
+            description = "Actualiza un gasto existente por su ID. Si el gasto no se encuentra, devuelve un mensaje de error."
+    )
     @PutMapping("/actualizar/{idExpense}")
     public ResponseEntity<?> updateExpense(@PathVariable Long idExpense, @RequestBody Expense expense) {
         try {
