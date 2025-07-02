@@ -1,11 +1,10 @@
 package survidia.expensemanager.model;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Positive;
-import jakarta.validation.constraints.Size;
+import jakarta.validation.constraints.*;
 import lombok.*;
+
+import java.math.BigDecimal;
 
 @Entity
 @Table(name = "tb_expense")
@@ -32,8 +31,9 @@ public class Expense {
 
     @Column(name = "amount", nullable = false, precision = 10, scale = 2)
     @NotNull(message = "La cantidad del gasto no puede ser nulo")
-    @Positive(message = "La cantidad del gasto debe mayor a cero")
-    private double amount;
+    @Digits(integer = 10, fraction = 2, message = "Formato inválido para la cantidad del gasto")
+    @DecimalMin(value = "0.00", message = "El monto debe ser positivo")
+    private BigDecimal amount;
 
     @Column(name = "date", nullable = false, length = 10)
     @NotBlank(message = "La fecha del gasto no puede estar vacía")
