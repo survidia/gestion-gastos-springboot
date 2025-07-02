@@ -1,6 +1,7 @@
 package survidia.expensemanager.controller;
 
 import io.swagger.v3.oas.annotations.Operation;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.HttpStatus;
@@ -44,7 +45,7 @@ public class ExpenseController {
             description = "Registra un nuevo gasto en el sistema."
     )
     @PostMapping("/crear")
-    public Expense saveExpense(@RequestBody Expense expense) {
+    public Expense saveExpense(@Valid @RequestBody Expense expense) {
         return expenseServiceImpl.saveExpense(expense);
     }
 
@@ -63,7 +64,7 @@ public class ExpenseController {
             description = "Actualiza un gasto existente por su ID. Si el gasto no se encuentra, devuelve un mensaje de error."
     )
     @PutMapping("/actualizar/{idExpense}")
-    public ResponseEntity<?> updateExpense(@PathVariable Long idExpense, @RequestBody Expense expense) {
+    public ResponseEntity<?> updateExpense(@PathVariable Long idExpense, @Valid @RequestBody Expense expense) {
         try {
             Optional<Expense> existingExpense = expenseServiceImpl.findExpenseById(idExpense);
             if (existingExpense.isPresent()) {
@@ -77,10 +78,10 @@ public class ExpenseController {
                 expenseServiceImpl.saveExpense(updatedExpense);
                 return ResponseEntity.ok(updatedExpense);
             } else {
-                return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Expense not found with id: " + idExpense);
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Gasto no encontrado con el id: " + idExpense);
             }
         } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error updating expense: " + e.getMessage());
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error al actualizar: " + e.getMessage());
         }
     }
 }
