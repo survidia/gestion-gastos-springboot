@@ -69,6 +69,7 @@ public class ExpenseController {
             Optional<Expense> existingExpense = expenseServiceImpl.findExpenseById(idExpense);
             if (existingExpense.isPresent()) {
                 Expense updatedExpense = existingExpense.get();
+                updatedExpense.setName(expense.getName());
                 updatedExpense.setDescription(expense.getDescription());
                 updatedExpense.setAmount(expense.getAmount());
                 updatedExpense.setDate(expense.getDate());
