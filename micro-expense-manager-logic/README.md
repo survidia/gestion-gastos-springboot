@@ -59,3 +59,17 @@ Por ejemplo, para el microservicio de gastos:
 cd micro-expense-manager-logic
 ./mvnw test
 ```
+
+## Base de datos con Docker
+
+Si no desea instalar PostgreSQL localmente puede levantarla mediante Docker. En
+la raíz del proyecto encontrará un `docker-compose.yml` que define el servicio
+de base de datos con las mismas credenciales usadas por la aplicación.
+
+```bash
+docker compose up -d
+```
+
+Esto iniciará un contenedor llamado `expense-db` accesible en el puerto
+`5432`. Los datos se almacenan en un volumen persistente llamado
+`expense_data`.
