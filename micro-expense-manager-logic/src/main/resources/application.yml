@@ -4,6 +4,9 @@ server:
 spring:
   application:
     name: Expense Manager
+  flyway:
+    enabled: true
+    locations: classpath:db/migration
 
   datasource:
     url: jdbc:postgresql://localhost:5432/expense_manager
